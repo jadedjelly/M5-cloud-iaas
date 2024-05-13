@@ -13,11 +13,52 @@
 - Deploy and run a Java Gradle application on Droplet
 ---------------------------------------------------------------------------------------------------
 
+- run update and upgrade on linux server
 
-Course Demos:
-- Course Demo is located [Here](https://github.com/jadedjelly/M5-cloud-iaas/tree/main)
+``` bash
+apt update && apt upgrade -y
+```
 
-Personal Testing / Practice:
-- Course Demo executed with Terraform [Here](https://github.com/jadedjelly/M5-cloud-iaas/tree/deploy-w-TF)
+- install the correct Version of java
+``` bash
+apt install openjdk-8-jre-headless -y
+```
+- clone "java-react-example"
+```bash
+git clone https://gitlab.com/twn-devops-bootcamp/latest/05-cloud/java-react-example
+```
+- cd to the project folder, and run the gradle build command
+```bash
+gradle build
+```
+- use scp to move the java app from your local to the droplet (scp loc ssh addr:destin)
+```bash
+scp java-react-example.jar root@46.101.212.166:/root
+```
+- ssh to the server & run the java app (open the port 7071 on the droplet, "&" runs the app in detached mode)
+```bash
+java -jar java-react-example.jar &
+```
+- create a user
+```bash
+useradd john
+```
+- add to the sudoers grp
+```bash
+usermod -aG sudo john
+```
+- copy pub key from local & cp to new linux user "john", create .ssh folder & an "authorized_keys" file and cp pub key here
+```bash
+mkdir .ssh
+sudo nano authorized_keys
+```
+- ssh from new user to server
+```bash
+ssh john@46.101.212.166
+```
+
+- below the java app running
+
+![Linux server & java app](https://github.com/jadedjelly/nana-techworld-devops-bootcamp/blob/main/notes/assets/05_Iaas/05_image19.png)
 
 
